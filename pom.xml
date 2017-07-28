@@ -34,4 +34,22 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
+    <build>
+        <resources>
+            <resource>
+                <targetPath>org/jpedal/examples/viewer/res/</targetPath>
+                <directory>src/main/java/org/jpedal/examples/viewer/res</directory>
+            </resource>
+            <resource>
+                <targetPath>org/jpedal/res/</targetPath>
+                <directory>src/main/java/org/jpedal/res</directory>
+            </resource>
+            <resource>
+                <targetPath>org/jpedal/international/</targetPath>
+                <directory>src/main/java/org/jpedal/international</directory>
+            </resource>
+        </resources>
+
+    </build>
+
 </project>

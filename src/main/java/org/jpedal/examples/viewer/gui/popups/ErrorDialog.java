@@ -48,11 +48,20 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import javafx.scene.control.Alert;
 import org.jpedal.utils.Messages;
 
 /**popup an error message to show user what message JPedal generated*/
 public class ErrorDialog {
-	
+	// simple method that replaces the Swing-based error method
+	public static void showJavaFxError(String title, String header, String message){
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(message);
+		alert.showAndWait();
+	}
+	@Deprecated
 	public static void showError( final Throwable th, final String message, final Component parent, final String fileName ) {
 		
 		final JPanel panel = new JPanel();

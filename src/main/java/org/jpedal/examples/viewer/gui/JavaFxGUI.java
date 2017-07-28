@@ -2931,15 +2931,23 @@ public class JavaFxGUI extends GUI implements GUIFactory {
         if (debugFX) {
             System.out.println("showMessageDialog - Implemented");
         }
+        Boolean showMessage = true;
 
-        //Ensure dialog is handled on FX thread
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                final FXMessageDialog dialog = new FXMessageDialog(stage, Modality.APPLICATION_MODAL, message);
-                dialog.show();
-            }
-        });
+        //check user has not setup message and if we still show message
+        if (customMessageHandler != null) {
+            showMessage = customMessageHandler.showMessage(message);
+        }
+
+        if(showMessage) {
+            //Ensure dialog is handled on FX thread
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    final FXMessageDialog dialog = new FXMessageDialog(stage, Modality.APPLICATION_MODAL, message);
+                    dialog.show();
+                }
+            });
+        }
     }
 
     public void showMessageDialog(final String message, final String hstitle) {
@@ -2947,8 +2955,17 @@ public class JavaFxGUI extends GUI implements GUIFactory {
         if (debugFX) {
             System.out.println("showMessageDialog - Implemented");
         }
-        final FXMessageDialog dialog = new FXMessageDialog(stage, Modality.APPLICATION_MODAL, message);
-        dialog.showAndWait();
+        Boolean showMessage = true;
+
+        //check user has not setup message and if we still show message
+        if (customMessageHandler != null) {
+            showMessage = customMessageHandler.showMessage(message);
+        }
+
+        if(showMessage) {
+            final FXMessageDialog dialog = new FXMessageDialog(stage, Modality.APPLICATION_MODAL, message);
+            dialog.showAndWait();
+        }
     }
 
     /* (non-Javadoc)

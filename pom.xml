@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jpedal</groupId>
+    <artifactId>OpenViewerFX</artifactId>
+    <version>6.6.17</version>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.birt.runtime.3_7_1</groupId>
+            <artifactId>org.mozilla.javascript</artifactId>
+            <version>1.7.2</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk16</artifactId>
+            <version>140</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcmail-jdk16</artifactId>
+            <version>140</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <targetPath>org/jpedal/examples/viewer/res/</targetPath>
+                <directory>src/main/java/org/jpedal/examples/viewer/res</directory>
+            </resource>
+            <resource>
+                <targetPath>org/jpedal/res/</targetPath>
+                <directory>src/main/java/org/jpedal/res</directory>
+            </resource>
+            <resource>
+                <targetPath>org/jpedal/international/</targetPath>
+                <directory>src/main/java/org/jpedal/international</directory>
+            </resource>
+        </resources>
+
+    </build>
+
+</project>

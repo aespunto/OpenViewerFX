@@ -150,10 +150,10 @@ public class MultiViewTransferHandler extends BaseTransferHandler {
 
                         final int result;
                         if (allowedFiles.size() == 1) {
-                            currentGUI.showMessageDialog(Messages.getMessage("PdfViewerOpenerror"), commonValues.getSelectedFile(), JOptionPane.ERROR_MESSAGE);
+                            currentGUI.showMessageDialog(Messages.getMessage("PdfViewerOpenError"), commonValues.getSelectedFile(), JOptionPane.ERROR_MESSAGE);
                             result = JOptionPane.NO_OPTION;
                         } else {
-                            result = currentGUI.showConfirmDialog(Messages.getMessage("PdfViewerOpenerror") + ". Continue opening remaining files?", commonValues.getSelectedFile(),
+                            result = currentGUI.showConfirmDialog(Messages.getMessage("PdfViewerOpenError") + ". Continue opening remaining files?", commonValues.getSelectedFile(),
                                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
                         }

@@ -39,7 +39,8 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import org.jpedal.display.*;
+import org.jpedal.display.Display;
+import org.jpedal.display.GUIDisplay;
 import org.jpedal.examples.viewer.Commands;
 import org.jpedal.examples.viewer.gui.JavaFxGUI;
 import org.jpedal.external.Options;
@@ -313,26 +314,31 @@ public class JavaFXDefaultActionHandler extends DefaultActionHandler {
     }
     
     @Override
-    protected void showSig(final PdfObject sigObject) {
-        
-      //org.jpedal.PdfDecoderFX decode_pdf = (org.jpedal.PdfDecoderFX) this.decode_pdf;
+    protected void showSig(final FormObject formObject) {
 
-      final Stage frame = new Stage();
-      
-      final JavaFXSummary summary = new JavaFXSummary(frame,sigObject);
-      
-       summary.setValues(sigObject.getTextStreamValue(PdfDictionary.Name),
+        //org.jpedal.PdfDecoderFX decode_pdf = (org.jpedal.PdfDecoderFX) this.decode_pdf;
+
+        PdfObject sigObject = formObject.getDictionary(PdfDictionary.V);
+        if (sigObject == null) {
+            return;
+        }
+
+        final Stage frame = new Stage();
+
+        final JavaFXSummary summary = new JavaFXSummary(frame, sigObject);
+
+        summary.setValues(sigObject.getTextStreamValue(PdfDictionary.Name),
                 sigObject.getTextStreamValue(PdfDictionary.Reason),
                 sigObject.getTextStreamValue(PdfDictionary.Location));
-       System.out.println("Name : " + sigObject.getTextStreamValue(PdfDictionary.Name));
-       System.out.println("Reason :" + sigObject.getTextStreamValue(PdfDictionary.Reason));
-       System.out.println("Location :" + sigObject.getTextStreamValue(PdfDictionary.Location));
-       
-       final Scene scene = new Scene(summary);
-      frame.setScene(scene);
-     
-      frame.setScene(scene);
-      frame.show();
+        System.out.println("Name : " + sigObject.getTextStreamValue(PdfDictionary.Name));
+        System.out.println("Reason :" + sigObject.getTextStreamValue(PdfDictionary.Reason));
+        System.out.println("Location :" + sigObject.getTextStreamValue(PdfDictionary.Location));
+
+        final Scene scene = new Scene(summary);
+        frame.setScene(scene);
+
+        frame.setScene(scene);
+        frame.show();
       
       
         // Swing code

@@ -51,6 +51,7 @@ import org.jpedal.examples.viewer.gui.GUI;
 import org.jpedal.examples.viewer.gui.generic.GUISearchWindow;
 import org.jpedal.display.GUIThumbnailPanel;
 import org.jpedal.examples.viewer.gui.popups.DownloadProgress;
+import org.jpedal.examples.viewer.gui.popups.ErrorDialog;
 import org.jpedal.examples.viewer.utils.PropertiesFile;
 import org.jpedal.exception.PdfException;
 import org.jpedal.gui.GUIFactory;
@@ -986,15 +987,22 @@ public class JavaFXOpenFile {
 
             if (currentGUI.isSingle()) {
 
-                if (GUI.showMessages) {
-                    System.out.println("ErrorDialog in JavaFXOpenFile.java needs JavaFX Rewrite of Error Dialog class");
-                    //ErrorDialog.showError(e, Messages.getMessage("PdfViewerOpenerror"), currentGUI.getFrame(), commonValues.getSelectedFile());
-                }
+                ErrorDialog.showJavaFxError(Messages.getMessage("PdfViewerOpenErrorTitle"), Messages.getMessage("PdfViewerOpenErrorHeader"), Messages.getMessage("PdfViewerOpenError"));
 
-                JavaFXExit.exit(thumbnails, currentGUI, commonValues, decode_pdf, properties);
+                // we reach this block in case the user tries to load an invalid PDF
+                // the following method contains a call to System.exit() and so shuts
+                // down the whole JVM --> don't do this anymore
+
+                //  JavaFXExit.exit(thumbnails, currentGUI, commonValues, decode_pdf, properties);
+
+                // however, there seems to be no quick fix of this behaviour that doesn't cause problems down the road
+                // e.g. PDFs being opened on page 0 etc.
             }
 
-            throw e;
+            // changing the entire exception handling for file opening is infeasible (this would have to
+            // go up to executeCommand) and might cause problems in other places
+            // --> throw an InternalError that can be caught and handled appropriately from the outside
+            throw new InternalError("Fatal error when reading in PDF file.");
         }
 
         if (!decode_pdf.isOpen() && commonValues.isPDF() && decode_pdf.getJPedalObject(PdfDictionary.Linearized) == null) {

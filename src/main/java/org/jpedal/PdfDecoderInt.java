@@ -233,6 +233,9 @@ public interface PdfDecoderInt {
 
     BufferedImage getPageAsImage(int pageIndex) throws PdfException;
 
+    BufferedImage getPageAsImage(int pageIndex, float scaling) throws PdfException;
+
+
     //
     
     /**

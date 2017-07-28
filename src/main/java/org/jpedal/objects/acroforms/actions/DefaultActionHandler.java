@@ -1110,14 +1110,14 @@ public class DefaultActionHandler implements ActionHandler {
         }
         
         if (eventType == MOUSECLICKED) {
+            // hand in the whole form object instead of the signature
+           // final PdfObject sigObject=formObj.getDictionary(PdfDictionary.V);//.getDictionary(PdfDictionary.Sig);
             
-            final PdfObject sigObject=formObj.getDictionary(PdfDictionary.V);//.getDictionary(PdfDictionary.Sig);
-            
-            if (sigObject == null) {
+            if (formObj == null) {
                 return;
             }
             
-            showSig(sigObject);
+            showSig(formObj);
             
         } else {
             setCursor(eventType);
@@ -1675,7 +1675,7 @@ public class DefaultActionHandler implements ActionHandler {
         //
     }
 
-    protected void showSig(final PdfObject sigObject) {
+    protected void showSig(final FormObject formObject) {
         
         //
     }

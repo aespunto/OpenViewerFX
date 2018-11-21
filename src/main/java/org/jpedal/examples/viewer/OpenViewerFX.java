@@ -186,22 +186,34 @@ public class OpenViewerFX extends Viewer implements ViewerInt{
 
         searchFrame = new JavaFXSearchWindow(currentGUI);
 
-        currentCommands = new JavaFXCommands(commonValues, currentGUI, decode_pdf,
-                thumbnails, properties, searchFrame, currentPrinter);
+        currentCommands = this.setupCommands();
         
                 
 		//enable error messages which are OFF by default
 		DecoderOptions.showErrorMessages=true;
-		
-		//
-		
-		
-		final String prefFile = System.getProperty("org.jpedal.Viewer.Prefs");
-		if(prefFile != null){
-			properties.loadProperties(prefFile);
-		}else{
-			properties.loadProperties();
-		}
+
+		if (this.preferencesPath != null) {
+            try {
+                properties.loadProperties(this.preferencesPath);
+            } catch (final Exception e) {
+                System.err.println("Specified Preferrences file not found at " + this.preferencesPath
+                    + ". If this file is within a jar ensure filename has jar: at the begining.\n\nLoading default properties. "
+                    + e);
+                properties.loadProperties();
+            }
+        } else {
+            final String prefFile = System.getProperty("org.jpedal.Viewer.Prefs");
+            if(prefFile != null){
+                properties.loadProperties(prefFile);
+            }else{
+                properties.loadProperties();
+            }
+        }
+    }
+
+    protected JavaFXCommands setupCommands(){
+        return new JavaFXCommands(commonValues, currentGUI, decode_pdf,
+            thumbnails, properties, searchFrame, currentPrinter);
     }
     
     /**
